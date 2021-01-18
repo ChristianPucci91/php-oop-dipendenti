@@ -16,7 +16,7 @@
           instanziando le varie classi provare a stampare cercando di ottenere un log sensato -->
     <?php
 
-      class Person {
+      class Persona {
         private $name;
         private $lastname;
         private $dateOfBirth;
@@ -29,26 +29,26 @@
         }
         public function __toString() {
           return
-            'name: ' . $this -> getName() . '<br>'
-            . 'lastname: ' . $this -> getLastName() . '<br>'
-            . 'dateOfBirth: ' . $this -> getDateOfBirth();
+            'Nome: ' . $this -> getName() . '<br>'
+            . 'Cognome: ' . $this -> getLastName() . '<br>'
+            . 'Data di nascita: ' . $this -> getDateOfBirth(). '<br>';
         }
         public function getName() {
           return $this -> name;
         }
-        public function setName() {
+        public function setName($name) {
           $this -> name = $name;
         }
         public function getLastName() {
           return $this -> lastname;
         }
-        public function setLastName() {
+        public function setLastName($lastname) {
           $this -> lastname = $lastname;
         }
         public function getDateOfBirth() {
           return $this -> dateOfBirth;
         }
-        public function setDateOfBirth() {
+        public function setDateOfBirth($dateOfBirth) {
           $this -> dateOfBirth = $dateOfBirth;
         }
 
@@ -61,7 +61,37 @@
         private $level;
 
         public function __construct($name,$lastname,$dateOfBirth,$id,$ral,$level){
+
           parent::__construct($name,$lastname,$dateOfBirth);
+
+          $this -> setId($id);
+          $this -> setRal($ral);
+          $this -> setLevel($level);
+
+        }
+        public function __toString() {
+          return parent:: __toString()
+                        . 'Codice dipendente: ' . $this -> getId() . '<br>'
+                        . 'Reddito annuale lordo: ' . $this -> getRal() . '€<br>'
+                        . 'Livello dipendente: ' . $this -> getLevel() . '°<br>';
+        }
+        public function getId() {
+          return $this -> id;
+        }
+        public function setId($id) {
+          $this -> id = $id;
+        }
+        public function getRal() {
+          return $this -> ral;
+        }
+        public function setRal($ral) {
+          $this -> ral = $ral;
+        }
+        public function getLevel() {
+          return $this -> level;
+        }
+        public function setLevel($level) {
+          $this -> level = $level;
         }
 
       }
@@ -72,8 +102,10 @@
 
       <?php
 
-        $person = new Person('Pinco','Pallino','1991-30-01');
+        $person = new Persona('Marco','Rossi','1991-30-01');
         echo $person;
+        $dipendente = new Dipendente('Gianni','Bianchi','1980-05-31','010203','30000','6');
+        echo $dipendente;
       ?>
 
     </div>
