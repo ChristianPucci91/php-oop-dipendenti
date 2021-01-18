@@ -37,13 +37,21 @@
           return $this -> name;
         }
         public function setName($name) {
-          $this -> name = $name;
+
+          if (gettype($name) == 'string') {
+            $this -> name = $name;
+          }
+
         }
         public function getLastName() {
           return $this -> lastname;
         }
         public function setLastName($lastname) {
-          $this -> lastname = $lastname;
+
+          if (gettype($lastname) == 'string') {
+           $this -> lastname = $lastname;
+          }
+
         }
         public function getDateOfBirth() {
           return $this -> dateOfBirth;
@@ -79,7 +87,11 @@
           return $this -> id;
         }
         public function setId($id) {
-          $this -> id = $id;
+
+          if (gettype($id) == 'integer') {
+            $this -> id = $id;
+          }
+
         }
         public function getRal() {
           return $this -> ral;
@@ -144,7 +156,7 @@
      <div class="box">
 
        <?php
-          $dipendente = new Dipendente('Gianni','Bianchi','1980-05-31','010203','30000','6');
+          $dipendente = new Dipendente('Gianni','Bianchi','1980-05-31',123,30000,6);
           echo $dipendente;
         ?>
 
@@ -152,7 +164,7 @@
      <div class="box">
 
        <?php
-         $boss = new Boss('Mauro','Verdi','1970-04-02','040204','45000','9','Responsabile vendite');
+         $boss = new Boss('Mauro','Verdi','1970-04-02',12345,45000,9,'Responsabile vendite');
         echo $boss;
         ?>
 
