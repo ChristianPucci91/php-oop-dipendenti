@@ -22,10 +22,16 @@
         private $dateOfBirth;
         public function __construct($name, $lastname, $dateOfBirth) {
 
-         $this -> name = $name;
-         $this -> lastname = $lastname;
-         $this -> dateOfBirth = $dateOfBirth;
+          $this -> setName($name);
+  				$this -> setLastName($lastname);
+  				$this -> setDateOfBirth($dateOfBirth);
 
+        }
+        public function __toString() {
+          return
+            'name: ' . $this -> getName() . '<br>'
+            . 'lastname: ' . $this -> getLastName() . '<br>'
+            . 'dateOfBirth: ' . $this -> getDateOfBirth();
         }
         public function getName() {
           return $this -> name;
@@ -45,12 +51,19 @@
         public function setDateOfBirth() {
           $this -> dateOfBirth = $dateOfBirth;
         }
-        public function __toString() {
-          return
-            'name: ' . $this -> name . '<br>'
-            . 'lastname: ' . $this -> lastname . '<br>'
-            . 'dateOfBirth: ' . $this -> dateOfBirth;
+
+      }
+
+      class Dipendente extends Persona {
+
+        private $id;
+        private $ral;
+        private $level;
+
+        public function __construct($name,$lastname,$dateOfBirth,$id,$ral,$level){
+          parent::__construct($name,$lastname,$dateOfBirth);
         }
+
       }
 
     ?>
@@ -60,10 +73,7 @@
       <?php
 
         $person = new Person('Pinco','Pallino','1991-30-01');
-        echo '<strong>Nome: </strong>' .$person -> getName(). ' '.'<br>'
-             .'<strong>Cognome: </strong>' .$person -> getLastName(). ' '.'<br>'
-             .'<strong>Data di nascita:</strong> ' .$person -> getDateOfBirth();
-
+        echo $person;
       ?>
 
     </div>
