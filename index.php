@@ -96,17 +96,67 @@
 
       }
 
+      class Boss extends Dipendente {
+
+        private $task;
+
+			  public function __construct($name,$lastname,$dateOfBirth,$id,$ral,$level,$task) {
+
+				parent:: __construct($name,$lastname,$dateOfBirth,$id,$ral,$level);
+
+				$this -> setTask($task);
+
+			  }
+
+  			public function __toString() {
+  				return parent:: __toString()
+  					. 'Responsabile area: ' . $this -> getTask() . '<br>';
+  			}
+
+  			public function setTask($task) {
+
+  				if (getType($task) == 'string') {
+
+  					$this -> task = $task;
+
+  				}
+
+  			}
+
+  			public function getTask() {
+  				return $this -> task;
+  			}
+
+      }
+
     ?>
 
     <div class="container">
 
-      <?php
+     <div class="box">
 
-        $person = new Persona('Marco','Rossi','1991-30-01');
-        echo $person;
-        $dipendente = new Dipendente('Gianni','Bianchi','1980-05-31','010203','30000','6');
-        echo $dipendente;
-      ?>
+       <?php
+          $person = new Persona('Marco','Rossi','1991-30-01');
+          echo $person;
+        ?>
+
+     </div>
+     <div class="box">
+
+       <?php
+          $dipendente = new Dipendente('Gianni','Bianchi','1980-05-31','010203','30000','6');
+          echo $dipendente;
+        ?>
+
+     </div>
+     <div class="box">
+
+       <?php
+         $boss = new Boss('Mauro','Verdi','1970-04-02','040204','45000','9','Responsabile vendite');
+        echo $boss;
+        ?>
+
+     </div>
 
     </div>
 
