@@ -19,7 +19,7 @@
                         private $name;
                         private $lastname;
                         private $dateOfBirth;
-                        private $securyLvl;
+                        protected $securyLvl;
                         public function __construct($name, $lastname, $dateOfBirth, $securyLvl) {
                             $this -> setName($name);
                             $this -> setLastname($lastname);
@@ -59,6 +59,7 @@
                             return $this -> securyLvl;
                         }
                         public function setSecuryLvl($securyLvl) {
+
                             $this -> securyLvl = $securyLvl;
                         }
                         public function __toString() {
@@ -71,6 +72,7 @@
                     }
                     class nameLength extends Exception {}
                     class lastNameLength extends Exception {}
+                    class lvlError extends Exception {}
 
                     class Employee extends Person {
                         private $ral;
@@ -103,6 +105,16 @@
                         public function setIdCode($idCode) {
                             $this -> idCode = $idCode;
                         }
+                        public function setSecuryLvl($securyLvl) {
+                          if (($securyLvl < 1) || ($securyLvl > 5) ) {
+
+                            $lvlError = new lvlError('Employeers must have level from 1 to 5');
+                            throw $lvlError;
+
+                          }
+                           $this -> securyLvl = $securyLvl;
+                        }
+
                         public function getDateOfHiring() {
                             return $this -> $dateOfHiring;
                         }
@@ -156,6 +168,15 @@
                         public function setEmployees($employees) {
                             $this -> employees = $employees;
                         }
+                        public function setSecuryLvl($securyLvl) {
+                          if (($securyLvl < 6) || ($securyLvl > 10) ) {
+
+                            $lvlError = new lvlError('Boss must have level from 6 to 10');
+                            throw $lvlError;
+
+                          }
+                           $this -> securyLvl = $securyLvl;
+                        }
                         public function __toString() {
                             return parent::__toString() . '<br>'
                                     . 'profit: ' . $this -> getProfit() . '<br>'
@@ -197,7 +218,7 @@
                           'Name',
                           'lastname',
                           'dateOfBirth',
-                          'securyLvl',
+                          1,
                           'ral',
                           'mainTask',
                           'idCode',
@@ -211,6 +232,9 @@
                     } catch (lastNameLength $lastNameError) {
                       echo 'Error :'. '<br>'
                       .'Lastname must be more than 3 characters<br><br>';
+                    } catch (lvlError $lvlError) {
+                      echo 'Error: '.'<br>'
+                      .'Employeers must have level from 1 to 5<br>';
                     }
 
                     try {
@@ -219,7 +243,7 @@
                           'Name',
                           'lastname',
                           'dateOfBirth',
-                          'securyLvl',
+                          6,
                           'ral',
                           'mainTask',
                           'idCode',
@@ -241,7 +265,11 @@
                    } catch (lastNameLength $lastNameError) {
                      echo 'Error :'. '<br>'
                      .'Lastname must be more than 3 characters<br><br>';
+                   }catch (lvlError $lvlError) {
+                     echo 'Error :'. '<br>'
+                     .'Boss must have level from 6 to 10.<br><br>';
                    }
+
     ?>
 
     <div class="container">
