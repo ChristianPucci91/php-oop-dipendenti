@@ -74,9 +74,10 @@
                     class lastNameLength extends Exception {}
                     class lvlError extends Exception {}
                     class ralRange extends Exception {}
+                    class emptyEmplo extends Exception {}
 
                     class Employee extends Person {
-                        private $ral;
+                        protected $ral;
                         private $mainTask;
                         private $idCode;
                         private $dateOfHiring;
@@ -171,6 +172,10 @@
                             return $this -> employees;
                         }
                         public function setEmployees($employees) {
+                          if (empty($employees)) {
+                            $emptyEmplo = new emptyEmplo('Boss must have employees');
+                            throw $emptyEmplo;
+                          }
                             $this -> employees = $employees;
                         }
                         public function setSecuryLvl($securyLvl) {
@@ -181,6 +186,13 @@
 
                           }
                            $this -> securyLvl = $securyLvl;
+                        }
+                        public function setRal($ral) {
+                          if (($ral < 10000) || ($ral > 100000)) {
+                            $ralRange = new ralRange('Boss must earn min 10000 up to 100000');
+                            throw $ralRange;
+                          }
+                            $this -> ral = $ral;
                         }
                         public function __toString() {
                             return parent::__toString() . '<br>'
@@ -224,7 +236,7 @@
                           'lastname',
                           'dateOfBirth',
                           1,
-                          1000,
+                          10000,
                           'mainTask',
                           'idCode',
                           'dateOfHiring',
@@ -252,7 +264,7 @@
                           'lastname',
                           'dateOfBirth',
                           6,
-                          'ral',
+                          10000,
                           'mainTask',
                           'idCode',
                           'dateOfHiring',
@@ -276,6 +288,12 @@
                    }catch (lvlError $lvlError) {
                      echo 'Error :'. '<br>'
                      .'Boss must have level from 6 to 10.<br><br>';
+                   } catch (ralRange $ralRange) {
+                     echo 'Error: '.'<br>'
+                     .'Employeers must earn min 10000 up to 100000<br>';
+                   } catch (emptyEmplo $emptyEmplo) {
+                     echo 'Error:' . '<br>'
+                     .'Boss must have employees<br>';
                    }
 
     ?>
