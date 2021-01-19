@@ -73,6 +73,7 @@
                     class nameLength extends Exception {}
                     class lastNameLength extends Exception {}
                     class lvlError extends Exception {}
+                    class ralRange extends Exception {}
 
                     class Employee extends Person {
                         private $ral;
@@ -91,6 +92,10 @@
                             return $this -> $ral;
                         }
                         public function setRal($ral) {
+                          if (($ral < 10000) || ($ral > 100000)) {
+                            $ralRange = new ralRange('Employers must earn min 10000 up to 100000');
+                            throw $ralRange;
+                          }
                             $this -> ral = $ral;
                         }
                         public function getMainTask() {
@@ -219,7 +224,7 @@
                           'lastname',
                           'dateOfBirth',
                           1,
-                          'ral',
+                          1000,
                           'mainTask',
                           'idCode',
                           'dateOfHiring',
@@ -235,6 +240,9 @@
                     } catch (lvlError $lvlError) {
                       echo 'Error: '.'<br>'
                       .'Employeers must have level from 1 to 5<br>';
+                    } catch (ralRange $ralRange) {
+                      echo 'Error: '.'<br>'
+                      .'Employeers must earn min 10000 up to 100000<br>';
                     }
 
                     try {
